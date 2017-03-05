@@ -6,23 +6,21 @@ public class Ball : MonoBehaviour {
 
 	private Rigidbody ballBody;
 	private AudioSource ballRollSound;
-	private Vector3 testVelocity;
 
-	public float launchSpeed;
+	public Vector3 launchVelocity;
 
 	// Use this for initialization
 	void Start () {
-		testVelocity = new Vector3 (0,0,100);
 		ballBody = GetComponent<Rigidbody>();
 		ballRollSound = GetComponent<AudioSource>();
 		ballBody.useGravity = false;
-		Launch (testVelocity);
+		//Launch (launchVelocity);
 	}
 
-	public Launch(Vector3 velocity)
+	public void Launch (Vector3 velocity)
 	{
-		velocity = testVelocity
+		ballBody.useGravity = true;
+		ballBody.velocity = velocity;
 		ballRollSound.Play ();
-		ballBody.velocity
 	}
 }
