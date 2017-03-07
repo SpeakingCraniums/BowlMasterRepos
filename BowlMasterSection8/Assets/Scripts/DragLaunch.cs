@@ -9,27 +9,38 @@ public class DragLaunch : MonoBehaviour {
 	private Vector3 startPosition, endPosition;
 	private float startTime, endTime;
 
+
 	// Use this for initialization
 	void Start () {
 		myBall = GetComponent<Ball>();
+
 	}
 
 	public void DragStart(){
-		startPosition = Input.mousePosition;
-		startTime = Time.time;
-
+		if (!myBall.ballLaunched){
+			startPosition = Input.mousePosition;
+			startTime = Time.time;
+		}
 	}
 
 	public void DragEnd(){
-		endPosition = Input.mousePosition;
-		endTime = Time.time;
-		//DeltaTime
-		float deltaTime = endTime - startTime;
-		// X to X but Y to Z for deltaLaunch
-		float launchSpeedX = (endPosition.x - startPosition.x ) / deltaTime;
-		float launchSpeedZ = (endPosition.y - startPosition.y) /deltaTime;
-		//Launch Vector with Y translated to Z
-		Vector3 deltaPosition = new Vector3 (launchSpeedX, 0, launchSpeedZ);
-		myBall.Launch(deltaPosition);
+		if (!myBall.ballLaunched){
+			endPosition = Input.mousePosition;
+			endTime = Time.time;
+			//DeltaTime
+			float deltaTime = endTime - startTime;
+			// X to X but Y to Z for deltaLaunch
+			float launchSpeedX = (endPosition.x - startPosition.x ) / deltaTime;
+			float launchSpeedZ = (endPosition.y - startPosition.y) /deltaTime;
+			//Launch Vector with Y translated to Z
+			Vector3 deltaPosition = new Vector3 (launchSpeedX, 0, launchSpeedZ);
+			myBall.Launch(deltaPosition);
+		}
+	}
+
+	public void MoveStart(float xNudge){
+		if (!myBall.ballLaunched){
+			myBall.transform.Translate(xNudge,0,0);
+		}
 	}
 }

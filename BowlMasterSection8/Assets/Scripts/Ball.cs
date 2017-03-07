@@ -9,12 +9,15 @@ public class Ball : MonoBehaviour {
 
 	public Vector3 launchVelocity;
 
+	public bool ballLaunched = false;
+
 	// Use this for initialization
 	void Start () {
 		ballBody = GetComponent<Rigidbody>();
 		ballRollSound = GetComponent<AudioSource>();
 		ballBody.useGravity = false;
 		//Launch (launchVelocity);
+
 	}
 
 	public void Launch (Vector3 velocity)
@@ -22,5 +25,6 @@ public class Ball : MonoBehaviour {
 		ballBody.useGravity = true;
 		ballBody.velocity = velocity;
 		ballRollSound.Play ();
+		ballLaunched = true;
 	}
 }
